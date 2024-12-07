@@ -1,4 +1,4 @@
-package com.myproject.mypart;
+package com.myproject.daniel;
 
 public interface INetworkLayerProtocol {
     void routePacket(Packet packet, INetworkInterface sourceInterface);

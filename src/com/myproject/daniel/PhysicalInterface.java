@@ -1,4 +1,4 @@
-package com.myproject.mypart;
+package com.myproject.daniel;
 
 public class PhysicalInterface implements INetworkInterface {
     private final Node owner;

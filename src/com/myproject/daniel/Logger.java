@@ -1,4 +1,4 @@
-package com.myproject.mypart;
+package com.myproject.daniel;
 
 public class Logger implements IEventListener {
     private static final Logger instance = new Logger();

@@ -1,4 +1,4 @@
-package com.myproject.mypart;
+package com.myproject.daniel;
 
 public interface IPhysicalMedium {
     void transmit(Packet packet, INetworkInterface from, INetworkInterface to);

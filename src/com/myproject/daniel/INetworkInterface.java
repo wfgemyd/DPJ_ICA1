@@ -1,4 +1,4 @@
-package com.myproject.mypart;
+package com.myproject.daniel;
 
 public interface INetworkInterface {
     void connect(IPhysicalMedium medium);

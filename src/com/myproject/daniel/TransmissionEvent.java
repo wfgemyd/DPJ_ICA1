@@ -1,4 +1,4 @@
-package com.myproject.mypart;
+package com.myproject.daniel;
 
 public class TransmissionEvent extends Event {
     private final Packet packet;

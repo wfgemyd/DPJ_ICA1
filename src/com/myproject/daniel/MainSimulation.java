@@ -1,4 +1,4 @@
-package com.myproject.mypart;
+package com.myproject.daniel;
 
 public class MainSimulation {
     public static void main(String[] args) {

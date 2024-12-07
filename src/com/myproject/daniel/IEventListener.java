@@ -1,4 +1,4 @@
-package com.myproject.mypart;
+package com.myproject.daniel;
 
 public interface IEventListener {
     void onEvent(Event e);
