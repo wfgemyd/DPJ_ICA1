@@ -15,8 +15,14 @@ public class WirelessMedium implements IPhysicalMedium {
         this.delay = delay;
     }
 
+
     @Override
     public void setErrorRate(double rate) {
         this.errorRate = rate;
+    }
+
+    @Override
+    public double getErrorRate() {
+        return this.errorRate;
     }
 }

@@ -19,4 +19,9 @@ public class CableMedium implements IPhysicalMedium {
     public void setErrorRate(double rate) {
         this.errorRate = rate;
     }
+
+    @Override
+    public double getErrorRate() {
+        return this.errorRate;
+    }
 }

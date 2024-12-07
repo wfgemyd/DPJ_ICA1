@@ -9,8 +9,14 @@ public class IPv4Protocol implements INetworkLayerProtocol {
 
     @Override
     public void routePacket(Packet packet, INetworkInterface sourceInterface) {
-        // Simple routing: just send out on the same interface
-        sourceInterface.sendPacket(packet);
+        // Check if this node is the destination
+        if (ipAddress.equals(packet.getDestination())) {
+            // Packet is at destination, do not resend
+            // If you want to log or process it here, you can
+        } else {
+            // If not destination, forward it along
+            sourceInterface.sendPacket(packet);
+        }
     }
 
     @Override
@@ -18,3 +24,4 @@ public class IPv4Protocol implements INetworkLayerProtocol {
         return ipAddress;
     }
 }
+

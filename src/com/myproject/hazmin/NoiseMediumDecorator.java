@@ -1,8 +1,8 @@
 package com.myproject.hazmin;
 
 import com.myproject.daniel.IPhysicalMedium;
-import com.myproject.daniel.Packet;
 import com.myproject.daniel.INetworkInterface;
+import com.myproject.daniel.Packet;
 
 public class NoiseMediumDecorator extends MediumDecorator {
     private double extraErrorRate;
@@ -14,7 +14,12 @@ public class NoiseMediumDecorator extends MediumDecorator {
 
     @Override
     public void transmit(Packet packet, INetworkInterface from, INetworkInterface to) {
-        // Just a placeholder. Actual logic to increase error rate would be here.
+        double originalErrorRate = getErrorRate(); // Inherited from MediumDecorator
+        double combinedRate = originalErrorRate + extraErrorRate;
+        if (combinedRate > 1.0) combinedRate = 1.0; // Cap at 100%
+
+        setErrorRate(combinedRate);
         super.transmit(packet, from, to);
+        setErrorRate(originalErrorRate);
     }
 }

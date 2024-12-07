@@ -20,11 +20,12 @@ public class PhysicalInterface implements INetworkInterface {
     @Override
     public void sendPacket(Packet packet) {
         Packet framed = linkProtocol.encapsulate(packet);
-        INetworkInterface targetInterface = TopologyManagerStaticMap.getTargetInterfaceFor(networkProtocol.getAddress());
+        INetworkInterface targetInterface = TopologyManagerStaticMap.getTargetInterfaceFor(packet.getDestination());
         if (targetInterface != null) {
             medium.transmit(framed, this, targetInterface);
         }
     }
+
 
     @Override
     public void receivePacket(Packet packet) {
