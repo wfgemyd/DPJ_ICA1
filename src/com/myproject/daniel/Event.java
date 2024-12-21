@@ -1,7 +1,14 @@
 package com.myproject.daniel;
 
+/**
+ * Abstract class to represent event during the simulation.
+ *
+ */
 public abstract class Event {
     protected final long time;
+    /** Constructor.
+     * @param time Time when the event should be executed.
+     */
 
     public Event(long time) {
         this.time = time;

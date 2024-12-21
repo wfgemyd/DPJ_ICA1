@@ -9,31 +9,29 @@ public class MainSimulation {
         // Register the Logger as an observer
         EventBus.getInstance().registerListener(Logger.getInstance());
 
-        // Read configuration for A's factory
+        // get configs to determine which factory and IP to use
         String selectedFactory = ConfigLoader.getConfig("factoryType");
         String ipAddress = ConfigLoader.getConfig("ipAddress");
 
-        // Select factory based on config for Node A
+        // selection of factory for node A
         ProtocolStackFactory factoryA;
         if ("IPv4Ethernet".equals(selectedFactory)) {
             factoryA = new BasicIPv4EthernetFactory(ipAddress);
         } else if ("IPv6WiFi".equals(selectedFactory)) {
             factoryA = new AdvancedIPv6WiFiFactory(ipAddress);
         } else {
-            // Default: IPv4Ethernet
-            factoryA = new BasicIPv4EthernetFactory(ipAddress);
+            factoryA = new BasicIPv4EthernetFactory(ipAddress); // default
         }
 
         // Create another factory for Node C with a different protocol set
-        // Here we hardcode IPv6WiFi for demonstration
+        // hardcode IPv6WiFi for demonstration
         ProtocolStackFactory factoryC = new AdvancedIPv6WiFiFactory("fe80::1");
 
-        // Create nodes
+        // create devices
         Node nodeA = new Node("A");
         Node nodeB = new Node("B");
-        Node nodeC = new Node("C"); // new node
+        Node nodeC = new Node("C");
 
-        // Interfaces:
         // A -> B connection
         INetworkInterface intfA = new PhysicalInterface(nodeA, factoryA.createLinkLayer(), factoryA.createNetworkLayer());
         INetworkInterface intfB = new PhysicalInterface(nodeB, new EthernetProtocol(), new IPv4Protocol("192.168.0.2"));
