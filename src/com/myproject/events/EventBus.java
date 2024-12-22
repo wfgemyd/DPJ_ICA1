@@ -1,5 +1,7 @@
 package com.myproject.events;
 
+import com.myproject.utils.IEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
 

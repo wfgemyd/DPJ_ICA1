@@ -1,7 +1,6 @@
 package com.myproject.utils;
 
 import com.myproject.events.Event;
-import com.myproject.events.IEventListener;
 import com.myproject.events.TransmissionEvent;
 
 public class StatisticsCollector implements IEventListener {

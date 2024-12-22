@@ -1,8 +1,8 @@
 package com.myproject.main;
 
-import com.myproject.AdvancedIPv6WiFiFactory;
-import com.myproject.BasicIPv4EthernetFactory;
-import com.myproject.ProtocolStackFactory;
+import com.myproject.factory.AdvancedIPv6WiFiFactory;
+import com.myproject.factory.BasicIPv4EthernetFactory;
+import com.myproject.factory.ProtocolStackFactory;
 import com.myproject.config.ConfigLoader;
 import com.myproject.core.INetworkInterface;
 import com.myproject.core.Node;
@@ -20,21 +20,21 @@ import com.myproject.physical_layer.WirelessMedium;
 
 public class MainSimulation {
     public static void main(String[] args) {
-        // Register the Logger as an observer
+        // create Logger singleton
         EventBus.getInstance().registerListener(Logger.getInstance());
 
         // get configs to determine which factory and IP to use
         String selectedFactory = ConfigLoader.getConfig("factoryType");
-        String ipAddress = ConfigLoader.getConfig("ipAddress");
+        String ipAddressA = ConfigLoader.getConfig("ipAddress");
 
         // selection of factory for node A
         ProtocolStackFactory factoryA;
         if ("IPv4Ethernet".equals(selectedFactory)) {
-            factoryA = new BasicIPv4EthernetFactory(ipAddress);
+            factoryA = new BasicIPv4EthernetFactory(ipAddressA);
         } else if ("IPv6WiFi".equals(selectedFactory)) {
-            factoryA = new AdvancedIPv6WiFiFactory(ipAddress);
+            factoryA = new AdvancedIPv6WiFiFactory(ipAddressA);
         } else {
-            factoryA = new BasicIPv4EthernetFactory(ipAddress); // default
+            factoryA = new BasicIPv4EthernetFactory(ipAddressA); // default
         }
 
         // Create another factory for Node C with a different protocol set
@@ -120,8 +120,8 @@ public class MainSimulation {
         intfA2.sendPacket(pC1);
 
         System.out.println("\n");
-        System.out.println("Selected factory: " + selectedFactory);
-        System.out.println("Selected IP: " + ipAddress);
+        System.out.println("Selected factory for Node A: " + selectedFactory);
+        System.out.println("Selected IP for Node A: " + ipAddressA);
         System.out.println("\n");
 
 

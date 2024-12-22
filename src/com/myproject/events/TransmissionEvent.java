@@ -54,7 +54,7 @@ public class TransmissionEvent extends Event {
     public String getDescription() {
         PhysicalInterface fromPI = (PhysicalInterface) from;
         PhysicalInterface toPI = (PhysicalInterface) to;
-        if (!lost) {
+        if (lost) {
             return "Packet lost in transmission from " + fromPI.getOwner().getName();
         } else {
             return "Packet delivered to " + toPI.getOwner().getName();

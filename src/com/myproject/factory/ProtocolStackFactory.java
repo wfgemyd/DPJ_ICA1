@@ -1,4 +1,4 @@
-package com.myproject;
+package com.myproject.factory;
 
 import com.myproject.link_layer.ILinkLayerProtocol;
 import com.myproject.network_layer.INetworkLayerProtocol;
