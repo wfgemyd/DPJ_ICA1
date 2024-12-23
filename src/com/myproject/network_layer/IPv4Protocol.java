@@ -11,6 +11,7 @@ public class IPv4Protocol implements INetworkLayerProtocol {
      * @param ipv4Address the IPv4 address of the node
      */
     public IPv4Protocol(String ipv4Address) {
+
         this.ipv4Address = ipv4Address;
     }
 
@@ -34,6 +35,7 @@ public class IPv4Protocol implements INetworkLayerProtocol {
 
     @Override
     public String getAddress() {
+
         return ipv4Address;
     }
 }
