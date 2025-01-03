@@ -24,24 +24,17 @@ public class MainSimulation {
         EventBus.getInstance().registerListener(Logger.getInstance());
         ProtocolStackFactory autoFactory = new AutoSelectingFactory();
 
+        String ipAddressA = ConfigLoader.getConfig("ipAddressA");
+        String linkLayerProtocolA = ConfigLoader.getConfig("linkLayerProtocolA");
+        String ipAddressB = ConfigLoader.getConfig("ipAddressB");
+        String linkLayerProtocolB = ConfigLoader.getConfig("linkLayerProtocolB");
+        String ipAddressC = ConfigLoader.getConfig("ipAddressC");
+        String linkLayerProtocolC = ConfigLoader.getConfig("linkLayerProtocolC");
+
         // create Nodes
-        Node nodeA = autoFactory.createNode(
-                "A",
-                ConfigLoader.getConfig("ipAddressA"),
-                ConfigLoader.getConfig("linkLayerProtocolA")
-        );
-
-        Node nodeB = autoFactory.createNode(
-                "B",
-                ConfigLoader.getConfig("ipAddressB"),
-                ConfigLoader.getConfig("linkLayerProtocolB")
-        );
-
-        Node nodeC = autoFactory.createNode(
-                "C",
-                ConfigLoader.getConfig("ipAddressC"),
-                ConfigLoader.getConfig("linkLayerProtocolC")
-        );
+        Node nodeA = autoFactory.createNode("A", ipAddressA, linkLayerProtocolA);
+        Node nodeB = autoFactory.createNode("B", ipAddressB, linkLayerProtocolB);
+        Node nodeC = autoFactory.createNode("C", ipAddressC, linkLayerProtocolC);
 
         // manually add second interface to the node
         INetworkInterface intfA2 = new PhysicalInterface(nodeA, new WiFiProtocol(), new IPv6Protocol("fe80::1"));
@@ -90,17 +83,17 @@ public class MainSimulation {
         intfC.connect(wireless);
 
         // Set routing info for node B and node C
-        TopologyManagerStaticMap.set("192.168.0.2", intfB);
-        TopologyManagerStaticMap.set("fe80::1", intfC);
+        TopologyManagerStaticMap.set(ipAddressB, intfB);
+        TopologyManagerStaticMap.set(ipAddressC, intfC);
 
         StatisticsCollector stats = new StatisticsCollector();
         EventBus.getInstance().registerListener(stats);
 
         // Send multiple packets to B
-        Packet p = new Packet("Hello from A to B", "192.168.0.2");
-        Packet p1 = new Packet("Hello 1 from A to B", "192.168.0.2");
-        Packet p2 = new Packet("Hello 2 from A to B", "192.168.0.2");
-        Packet p3 = new Packet("Hello 3 from A to B", "192.168.0.2");
+        Packet p = new Packet("Hello from A to B", ipAddressB);
+        Packet p1 = new Packet("Hello 1 from A to B", ipAddressB);
+        Packet p2 = new Packet("Hello 2 from A to B", ipAddressB);
+        Packet p3 = new Packet("Hello 3 from A to B", ipAddressB);
 
         intfA.sendPacket(p);
         intfA.sendPacket(p1);
@@ -108,11 +101,10 @@ public class MainSimulation {
         intfA.sendPacket(p3);
 
         // Send packets to C as well
-        Packet pC = new Packet("Hello from A to C", "fe80::1");
-        Packet pC1 = new Packet("Another msg to C", "fe80::1");
+        Packet pC = new Packet("Hello from A2 to C", ipAddressC);
+        Packet pC1 = new Packet("Another msg to C", ipAddressC);
         intfA2.sendPacket(pC);
         intfA2.sendPacket(pC1);
-
 
         EventScheduler.getInstance().run();
 

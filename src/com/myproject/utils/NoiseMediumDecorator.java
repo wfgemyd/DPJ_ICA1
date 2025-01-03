@@ -16,7 +16,9 @@ public class NoiseMediumDecorator extends MediumDecorator {
     public void transmit(Packet packet, INetworkInterface from, INetworkInterface to) {
         double originalErrorRate = getErrorRate(); // Inherited from MediumDecorator
         double combinedRate = originalErrorRate + extraErrorRate;
-        if (combinedRate > 1.0) combinedRate = 1.0; // Cap at 100%
+
+        if (combinedRate > 1.0)
+            combinedRate = 1.0; // Cap at 100%
 
         setErrorRate(combinedRate);
         super.transmit(packet, from, to);

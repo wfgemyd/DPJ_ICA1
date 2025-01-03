@@ -5,6 +5,9 @@ import com.myproject.core.INetworkInterface;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This class is used to store network interface routes in a static map. Binds a destination address to a network interface.
+ */
 public class TopologyManagerStaticMap {
     private static final Map<String, INetworkInterface> routeMap = new HashMap<>();
 
