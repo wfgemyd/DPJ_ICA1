@@ -6,12 +6,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * This class is used to store network interface routes in a static map. Binds a destination address to a network interface.
+ * Storing, setting and getting routing information. A simple routing manager that maps destination IP addresses to corresponsing network interfaces.
  */
-public class TopologyManagerStaticMap {
+public class RoutingManager {
     private static final Map<String, INetworkInterface> routeMap = new HashMap<>();
 
-    public static void set(String address, INetworkInterface intf) {
+    public static void setRoute(String address, INetworkInterface intf) {
         routeMap.put(address, intf);
     }
 

@@ -5,6 +5,9 @@ import com.myproject.core.Packet;
 import com.myproject.events.EventScheduler;
 import com.myproject.events.TransmissionEvent;
 
+/**
+ * Represents a wireless medium, such as WiFi or Bluetooth signals for transmitting the data.
+ */
 public class WirelessMedium implements IPhysicalMedium {
     private long delay = 15;
     private double errorRate = 0.05;

@@ -8,6 +8,7 @@ import com.myproject.link_layer.WiFiProtocol;
 import com.myproject.link_layer.EthernetProtocol;
 import com.myproject.network_layer.IPv6Protocol;
 import com.myproject.network_layer.IPv4Protocol;
+import com.myproject.utils.RoutingManager;
 
 /**
  * Factory for automatic selection and creation of appropriate protocol stacks.
@@ -45,6 +46,8 @@ public class AutoSelectingFactory implements ProtocolStackFactory {
         INetworkInterface intf = new PhysicalInterface(node, linkLayer, networkLayer);
         node.addInterface(intf);
 
+        RoutingManager.setRoute(ipAddress, intf);
         return node;
     }
+
 }

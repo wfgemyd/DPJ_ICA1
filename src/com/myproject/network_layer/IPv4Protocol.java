@@ -34,6 +34,13 @@ public class IPv4Protocol implements INetworkLayerProtocol {
     }
 
     @Override
+    public Packet formatPacket(Packet packet, String destinationAddress) {
+        packet.addHeader("IPv6 Header" + ipv4Address + "->" + destinationAddress);
+
+        return packet;
+    }
+
+    @Override
     public String getAddress() {
 
         return ipv4Address;

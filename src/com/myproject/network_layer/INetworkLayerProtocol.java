@@ -4,10 +4,8 @@ import com.myproject.core.INetworkInterface;
 import com.myproject.core.Packet;
 
 /**
- * The INetworkLayerProtocol defines the behavior of a network layer protocol (e.g. IPv4, IPv6).
- * It is responsible for handling packets,
- * including determining the next appropriate interface or device through
- * which the packet should be sent based on the destination address.
+ * The INetworkLayerProtocol defines the behavior of protocol of a network layer (e.g. IPv4, IPv6).
+ * It is responsible for formatting packets, and routing them to the appropriate interface based on the destination address.
  */
 public interface INetworkLayerProtocol {
     /**
@@ -18,6 +16,13 @@ public interface INetworkLayerProtocol {
      *
      */
     void routePacket(Packet packet, INetworkInterface sourceInterface);
+
+    /**
+     * Formats a packet by adding headers.
+     *
+     * @param packet Packet instance.
+     */
+    Packet formatPacket(Packet packet, String destinationAddress);
 
     /**
      * Returns the address associated with specific network layer protocol.

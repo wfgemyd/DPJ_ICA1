@@ -1,9 +1,9 @@
 package com.myproject.core;
 
-import com.myproject.utils.TopologyManagerStaticMap;
 import com.myproject.link_layer.ILinkLayerProtocol;
 import com.myproject.network_layer.INetworkLayerProtocol;
 import com.myproject.physical_layer.IPhysicalMedium;
+import com.myproject.utils.RoutingManager;
 
 /**
  * Represents a physical network interface of a network device, linking protocols and mediums together. It is used to send and receive packets.
@@ -14,6 +14,7 @@ public class PhysicalInterface implements INetworkInterface {
     private final ILinkLayerProtocol linkProtocol;
     private final INetworkLayerProtocol networkProtocol;
     private IPhysicalMedium medium;
+
 
     /**
      * Constructor, creates a new physical interface.
@@ -29,7 +30,7 @@ public class PhysicalInterface implements INetworkInterface {
 
     /**
      * Connects the interface to a physical medium.
-     * @param medium The physical medium to connect to.
+     * @param medium The physical medium to connect to.sr
      */
     @Override
     public void connect(IPhysicalMedium medium) {
@@ -37,7 +38,7 @@ public class PhysicalInterface implements INetworkInterface {
     }
 
     /**
-     * Encapsulates and routes a packet to the target.
+     * Encapsulates, routes and transmits a packet to the target.
      * @param packet The packet to send.
      */
     @Override
@@ -45,11 +46,18 @@ public class PhysicalInterface implements INetworkInterface {
         if (medium == null) {
             throw new IllegalStateException("Interface not connected to a medium");
         }
-        // Encapsulate the packet using the link layer protocol
-        Packet framed = linkProtocol.encapsulate(packet);
-        INetworkInterface targetInterface = TopologyManagerStaticMap.getTargetInterfaceFor(packet.getDestination());
+        // Pass packet through layers encapsulations
+        Packet headPacket = networkProtocol.formatPacket(packet, packet.getDestination());
+        Packet framedPacket = linkProtocol.encapsulate(headPacket);
+
+        // routing
+        INetworkInterface targetInterface = RoutingManager.getTargetInterfaceFor(packet.getDestination());
+
         if (targetInterface != null) {
-            medium.transmit(framed, this, targetInterface);
+            medium.transmit(framedPacket, this, targetInterface);
+        }
+        else {
+            throw new IllegalStateException("No route found for destination address");
         }
     }
 

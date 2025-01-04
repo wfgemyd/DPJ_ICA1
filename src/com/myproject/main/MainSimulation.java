@@ -7,11 +7,10 @@ import com.myproject.core.Node;
 import com.myproject.core.Packet;
 import com.myproject.core.PhysicalInterface;
 import com.myproject.link_layer.WiFiProtocol;
+import com.myproject.physical_layer.NoiseMediumDecorator;
 import com.myproject.utils.*;
 import com.myproject.events.EventBus;
 import com.myproject.events.EventScheduler;
-import com.myproject.link_layer.EthernetProtocol;
-import com.myproject.network_layer.IPv4Protocol;
 import com.myproject.physical_layer.CableMedium;
 import com.myproject.physical_layer.IPhysicalMedium;
 import com.myproject.physical_layer.WirelessMedium;
@@ -20,14 +19,17 @@ import com.myproject.network_layer.IPv6Protocol;
 
 public class MainSimulation {
     public static void main(String[] args) {
-        // create Logger singleton
+        // setup Logger
         EventBus.getInstance().registerListener(Logger.getInstance());
         ProtocolStackFactory autoFactory = new AutoSelectingFactory();
 
+        // read config
         String ipAddressA = ConfigLoader.getConfig("ipAddressA");
         String linkLayerProtocolA = ConfigLoader.getConfig("linkLayerProtocolA");
+
         String ipAddressB = ConfigLoader.getConfig("ipAddressB");
         String linkLayerProtocolB = ConfigLoader.getConfig("linkLayerProtocolB");
+
         String ipAddressC = ConfigLoader.getConfig("ipAddressC");
         String linkLayerProtocolC = ConfigLoader.getConfig("linkLayerProtocolC");
 
@@ -36,14 +38,14 @@ public class MainSimulation {
         Node nodeB = autoFactory.createNode("B", ipAddressB, linkLayerProtocolB);
         Node nodeC = autoFactory.createNode("C", ipAddressC, linkLayerProtocolC);
 
-        // manually add second interface to the node
-        INetworkInterface intfA2 = new PhysicalInterface(nodeA, new WiFiProtocol(), new IPv6Protocol("fe80::1"));
-        nodeA.addInterface(intfA2);
-
         // get interfaces
         INetworkInterface intfA = nodeA.getInterfaces().getFirst();
         INetworkInterface intfB = nodeB.getInterfaces().getFirst();
         INetworkInterface intfC = nodeC.getInterfaces().getFirst();
+
+        // manually add second interface to the node A
+        INetworkInterface intfA2 = new PhysicalInterface(nodeA, new WiFiProtocol(), new IPv6Protocol("fe80::1"));
+        nodeA.addInterface(intfA2);
 
         // read physical medium config
         String cableDelayStr = ConfigLoader.getConfig("cableDelay");
@@ -55,16 +57,13 @@ public class MainSimulation {
         double cableErrorRateValue = cableErrorRateStr != null ? Double.parseDouble(cableErrorRateStr) : 0.05;
         double noiseExtraErrorValue = noiseExtraErrorStr != null ? Double.parseDouble(noiseExtraErrorStr) : 0.1;
 
-        System.out.println("Cable Delay: " + cableDelayValue);
-        System.out.println("Cable Error Rate: " + cableErrorRateValue);
-        System.out.println("Noise Extra Error: " + noiseExtraErrorValue);
-
-        // Connect A + B via cable with noise
+        // Configure cable with noise
         IPhysicalMedium cable = new CableMedium();
         cable.setDelay(cableDelayValue);
         cable.setErrorRate(cableErrorRateValue);
         IPhysicalMedium noisyCable = new NoiseMediumDecorator(cable, noiseExtraErrorValue);
 
+        // Connect A + B via cable with noise
         intfA.connect(noisyCable);
         intfB.connect(noisyCable);
 
@@ -81,10 +80,6 @@ public class MainSimulation {
         // For now, let's leave this wireless link without extra noise:
         intfA2.connect(wireless);
         intfC.connect(wireless);
-
-        // Set routing info for node B and node C
-        TopologyManagerStaticMap.set(ipAddressB, intfB);
-        TopologyManagerStaticMap.set(ipAddressC, intfC);
 
         StatisticsCollector stats = new StatisticsCollector();
         EventBus.getInstance().registerListener(stats);
@@ -107,6 +102,10 @@ public class MainSimulation {
         intfA2.sendPacket(pC1);
 
         EventScheduler.getInstance().run();
+
+        System.out.println("Cable Delay: " + cableDelayValue);
+        System.out.println("Cable Error Rate: " + cableErrorRateValue);
+        System.out.println("Noise Extra Error: " + noiseExtraErrorValue);
 
         stats.printStats();
     }

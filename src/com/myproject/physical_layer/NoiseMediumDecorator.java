@@ -1,9 +1,11 @@
-package com.myproject.utils;
+package com.myproject.physical_layer;
 
 import com.myproject.core.INetworkInterface;
 import com.myproject.core.Packet;
-import com.myproject.physical_layer.IPhysicalMedium;
 
+/**
+ * Adds the extra noise (error rate) to the physical medium.
+ */
 public class NoiseMediumDecorator extends MediumDecorator {
     private double extraErrorRate;
 

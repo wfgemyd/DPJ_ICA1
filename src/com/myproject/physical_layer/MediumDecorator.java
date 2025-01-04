@@ -1,8 +1,7 @@
-package com.myproject.utils;
+package com.myproject.physical_layer;
 
 import com.myproject.core.INetworkInterface;
 import com.myproject.core.Packet;
-import com.myproject.physical_layer.IPhysicalMedium;
 
 public abstract class MediumDecorator implements IPhysicalMedium {
     protected final IPhysicalMedium wrapped;

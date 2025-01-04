@@ -5,8 +5,7 @@ import com.myproject.core.Packet;
 import com.myproject.core.PhysicalInterface;
 
 /**
- * Event representing packet transmission, extends {@code Event}.
-
+ * Event representing packet transmission between network interfaces.
  */
 public class TransmissionEvent extends Event {
     private final Packet packet;
@@ -33,7 +32,7 @@ public class TransmissionEvent extends Event {
 
     /**
      * Transmit packet from one interface to another.
-     * The packet is lost when the roll < error rate, representing the real world probaility of packet loss.
+     * The packet is lost when the random number < error rate, representing the real world probaility of packet loss.
      */
     @Override
     public void execute() {
@@ -47,7 +46,8 @@ public class TransmissionEvent extends Event {
     }
 
     /**
-     * Get description of the event for further usage in statistics.
+     * Get result of the event as a String for further usage in logging statistics.
+     *
      * @return Description of the event.
      */
     @Override
