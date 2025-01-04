@@ -5,9 +5,9 @@ import com.myproject.core.Packet;
 public class WiFiProtocol implements ILinkLayerProtocol {
 
     @Override
-    public Packet encapsulate(Packet payload) {
-        payload.addHeader("WiFiHeader");
-        return payload;
+    public Packet encapsulate(Packet packet) {
+        packet.addHeader("WiFiHeader");
+        return packet;
     }
 
     @Override

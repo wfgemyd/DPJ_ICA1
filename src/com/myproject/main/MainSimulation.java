@@ -73,9 +73,9 @@ public class MainSimulation {
         wireless.setErrorRate(0.02); // different base error rate
 
         // If it will be commented out then it will not be decorated.
-         IPhysicalMedium noisyWireless = new NoiseMediumDecorator(wireless, 0.05);
-         intfA2.connect(noisyWireless);
-         intfC.connect(noisyWireless);
+        IPhysicalMedium noisyWireless = new NoiseMediumDecorator(wireless, 0.05);
+        intfA2.connect(noisyWireless);
+        intfC.connect(noisyWireless);
 
         // For now, let's leave this wireless link without extra noise:
         intfA2.connect(wireless);

@@ -2,14 +2,23 @@ package com.myproject.link_layer;
 
 import com.myproject.core.Packet;
 
+/**
+ * Abstraction for Data Link Layer protocols.
+ */
 public interface ILinkLayerProtocol {
     /**
-     * Encapsulates a packet with the appropriate link layer headers. Did not add tail for simplicity.
+     * Encapsulates a packet with the appropriate MAC address headers, returning a frame (still of Packet class for simplicity). Did not add tail for simplicity.
      *
-     * @param payload Packet instance accepted from the network layer.
+     * @param packet Packet instance accepted from the network layer.
      * @return Frame containing the packet, header and tail.
      */
+    Packet encapsulate(Packet packet);
 
-    Packet encapsulate(Packet payload);
+    /**
+     * Decapsulates a frame to extract the packet.
+     *
+     * @param frame Packet instance (frame) accepted from the physical layer.
+     * @return Packet extracted from the frame.
+     */
     Packet decapsulate(Packet frame);
 }
