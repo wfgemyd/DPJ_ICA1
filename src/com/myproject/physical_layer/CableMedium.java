@@ -13,12 +13,6 @@ public class CableMedium implements IPhysicalMedium {
     private long delay = 10;
     private double errorRate = 0.0;
 
-    /**
-     * Transmit packet from one interface to another.
-     * @param packet Packet to transmit.
-     * @param from Source interface.
-     * @param to Destination interface.
-     */
     @Override
     public void transmit(Packet packet,
                          INetworkInterface from,

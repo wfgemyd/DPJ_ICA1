@@ -15,7 +15,7 @@ public interface ILinkLayerProtocol {
     Packet encapsulate(Packet packet);
 
     /**
-     * Decapsulates a frame to extract the packet.
+     * Decapsulates a frame to extract the packet by removing MAC address header.
      *
      * @param frame Packet instance (frame) accepted from the physical layer.
      * @return Packet extracted from the frame.

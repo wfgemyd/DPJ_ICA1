@@ -21,7 +21,7 @@ public interface IPhysicalMedium {
 
     /**
      * Adds noise to the medium.
-     * @param rate The error rate to set.
+     * @param rate The error rate to set, from 0 to 1.
      */
     void setErrorRate(double rate);
 
