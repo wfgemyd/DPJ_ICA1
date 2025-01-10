@@ -11,7 +11,8 @@ public class StatisticsCollector implements IEventListener {
     private int lostCount = 0;
 
     /**
-     * Determine whether the packet was delivered or lost and update the statistics of delivered and lost packets.
+     * Determine whether the packet was delivered or lost based on the description.
+     * Update the count of delivered and lost packets in statistics.
      * @param e Event instance based on which the statistics are updated.
      */
     @Override

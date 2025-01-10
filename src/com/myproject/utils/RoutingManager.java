@@ -6,7 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Storing, setting and getting routing information. A simple routing manager that maps destination IP addresses to corresponsing network interfaces.
+ * Storing, setting and getting routing information.
+ * A simple routing manager that maps destination IP addresses to corresponsing network interfaces.
  */
 public class RoutingManager {
     private static final Map<String, INetworkInterface> routeMap = new HashMap<>();

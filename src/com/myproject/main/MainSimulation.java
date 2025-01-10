@@ -9,7 +9,7 @@ import com.myproject.core.PhysicalInterface;
 import com.myproject.link_layer.WiFiProtocol;
 import com.myproject.physical_layer.NoiseMediumDecorator;
 import com.myproject.utils.*;
-import com.myproject.events.EventBus;
+import com.myproject.utils.EventBus;
 import com.myproject.events.EventScheduler;
 import com.myproject.physical_layer.CableMedium;
 import com.myproject.physical_layer.IPhysicalMedium;

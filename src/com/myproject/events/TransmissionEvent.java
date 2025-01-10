@@ -3,6 +3,7 @@ package com.myproject.events;
 import com.myproject.core.INetworkInterface;
 import com.myproject.core.Packet;
 import com.myproject.core.PhysicalInterface;
+import com.myproject.utils.EventBus;
 
 /**
  * Event representing packet transmission between network interfaces.
