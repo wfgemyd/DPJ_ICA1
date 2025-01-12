@@ -21,7 +21,7 @@ public class Logger implements IEventListener {
     }
 
     /**
-     * Logs the current time and the description of the event (e.g. results of transmission).
+     * Logs the time from the start of the simulation and the description of the event (e.g. results of transmission).
      * @param e event to log
      */
     @Override

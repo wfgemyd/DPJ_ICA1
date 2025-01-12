@@ -31,6 +31,10 @@ public class EventScheduler {
         eventQueue.add(event);
     }
 
+    /**
+     * Retrieve the current time.
+     * @return Current time.
+     */
     public long getCurrentTime() {
         return currentTime;
     }

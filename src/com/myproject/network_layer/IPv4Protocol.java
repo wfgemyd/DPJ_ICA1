@@ -3,6 +3,10 @@ package com.myproject.network_layer;
 import com.myproject.core.INetworkInterface;
 import com.myproject.core.Packet;
 
+/**
+ * Implementation of the IPv4 network layer protocol.
+ * The IP Address should be in the following format: 255.255.255.255
+ */
 public class IPv4Protocol implements INetworkLayerProtocol {
     private final String ipv4Address;
 

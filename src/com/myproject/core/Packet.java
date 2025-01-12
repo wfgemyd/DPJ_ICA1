@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents either encapsulated or not data that can be sent over the network.
+ * Represents the data that can be sent over the network.
  */
 public class Packet {
     private String data;

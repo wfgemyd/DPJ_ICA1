@@ -71,6 +71,10 @@ public class PhysicalInterface implements INetworkInterface {
         networkProtocol.routePacket(unframed, this);
     }
 
+    /**
+     * Gets the Node which owns the interface.
+     * @return Node instance.
+     */
     public Node getOwner() {
         return owner;
     }

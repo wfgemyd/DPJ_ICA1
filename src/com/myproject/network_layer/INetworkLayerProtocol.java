@@ -12,7 +12,7 @@ public interface INetworkLayerProtocol {
      * Routes a packet to the appropriate interface/device based on the destination address.
      *
      * @param packet Packet instance containing data, destination and headers necessary to conduct network transmission.
-     * @param sourceInterface the INetworkInterface from which the packet came.
+     * @param sourceInterface interface from which the packet came.
      *
      */
     void routePacket(Packet packet, INetworkInterface sourceInterface);

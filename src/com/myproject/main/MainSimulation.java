@@ -19,8 +19,11 @@ import com.myproject.network_layer.IPv6Protocol;
 
 public class MainSimulation {
     public static void main(String[] args) {
-        // setup Logger
+        // setup Logger and StatisticsCollector, observer pattern
         EventBus.getInstance().registerListener(Logger.getInstance());
+        StatisticsCollector stats = new StatisticsCollector();
+        EventBus.getInstance().registerListener(stats);
+
         ProtocolStackFactory autoFactory = new AutoSelectingFactory();
 
         // read config
@@ -38,7 +41,7 @@ public class MainSimulation {
         Node nodeB = autoFactory.createNode("B", ipAddressB, linkLayerProtocolB);
         Node nodeC = autoFactory.createNode("C", ipAddressC, linkLayerProtocolC);
 
-        // get interfaces
+        // get interfaces from the created Nodes
         INetworkInterface intfA = nodeA.getInterfaces().getFirst();
         INetworkInterface intfB = nodeB.getInterfaces().getFirst();
         INetworkInterface intfC = nodeC.getInterfaces().getFirst();
@@ -80,9 +83,6 @@ public class MainSimulation {
         // For now, let's leave this wireless link without extra noise:
         intfA2.connect(wireless);
         intfC.connect(wireless);
-
-        StatisticsCollector stats = new StatisticsCollector();
-        EventBus.getInstance().registerListener(stats);
 
         // Send multiple packets to B
         Packet p = new Packet("Hello from A to B", ipAddressB);

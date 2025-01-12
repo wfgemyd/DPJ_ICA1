@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * Loads configuration from config.properties file.
+ */
 public class ConfigLoader {
     private static Properties properties = new Properties();
 
